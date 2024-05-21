@@ -1,8 +1,10 @@
 // Task 1
 // Напишите функцию t1, которая принимает два аргумента и выводит в .out-1 случайное целое число от первого аргумента(включительно) до второго(включительно). Функция запускается по кнопке .b-1. Обратите внимание на запуск функции. Чтобы передать аргументы, нам пришлось обернуть функцию в анонимную.
 
+const out1 = document.querySelector('.out-1');
 function t1(min, max) {
-  document.querySelector('.out-1').innerHTML = Math.round(Math.random() * (max - min) + min);
+  let num = Math.floor(Math.random() * (max - min) + min);
+  out1.innerHTML = num;
 }
 
 document.querySelector('.b-1').addEventListener('click', function () {
@@ -13,20 +15,24 @@ document.querySelector('.b-1').addEventListener('click', function () {
 
 //Напишите функцию t2, которая принимает три аргумента (число от, число до и блок, в который нужно вывести данные) и выводит в указанный блок случайное целое число от первого аргумента(включительно) до второго(включительно). Функция запускается по кнопке .b-2. Обратите внимание на запуск функции. Чтобы передать аргументы, нам пришлось обернуть функцию в анонимную.
 
-function t2(min = 0, max = 100, block) {
-  block.innerHTML = Math.floor(Math.random() * (max - min + 1)) + min;
+function t2(min, max, block) {
+  let out = document.querySelector(block);
+  let num = Math.floor(Math.random() * (max - min) + min);
+  out.innerHTML = num;
 }
 
 document.querySelector('.b-2').addEventListener('click', function () {
-  const out2 = document.querySelector('.out-2');
-  t2(120, 140, out2); // функция должна вывести случайное целое от 120 до 140 в блок out-2
+  t2(20, 50, '.out-2');
+  // функция должна вывести случайное целое от 120 до 140 в блок out-2
 });
 
 // Task 3.
 //Напишите функцию t3, которая принимает два аргумента (число от, число до ) и выводит в блок .out-3 случайное целое число от первого аргумента(включительно) до второго(включительно). Задайте значение по умолчанию для min число 0 для max число 100. Функция запускается по кнопке .b-3. Обратите внимание на запуск функции. Чтобы передать аргументы, нам пришлось обернуть функцию в анонимную.
 
 function t3(min = 0, max = 100) {
-  document.querySelector('.out-3').innerHTML = Math.floor(Math.random() * (max - min + 1)) + min;
+  let num = Math.floor(Math.random() * (max - min) + min);
+  let out = document.querySelector('.out-3');
+  out.innerHTML = num;
 }
 
 document.querySelector('.b-3').addEventListener('click', function () {
@@ -38,13 +44,8 @@ document.querySelector('.b-3').addEventListener('click', function () {
 
 function t4(a, b, c) {
   let out = document.querySelector('.out-4');
-  console.log(b);
+  out.innerHTML = b === 0 ? c : a / b;
   //   out.innerHTML = b === 0 ? a / b : c;
-  if (b == 0) {
-    out.innerHTML = c;
-  } else {
-    out.innerHTML = a / b;
-  }
 }
 
 document.querySelector('.b-4').addEventListener('click', function () {
@@ -56,8 +57,7 @@ document.querySelector('.b-4').addEventListener('click', function () {
 
 function t5(a, b, c = 0) {
   let out = document.querySelector('.out-5');
-  console.log(b);
-  if (b == 0) {
+  if (b === 0) {
     out.innerHTML = c;
   } else {
     out.innerHTML = a / b;
@@ -65,68 +65,80 @@ function t5(a, b, c = 0) {
 }
 
 document.querySelector('.b-5').addEventListener('click', function () {
-  t5(7, 0, false);
+  t5(7, 0);
 });
 
 // Task 6
 // Давайте напишем функцию t6, которая выводит переданный ей массив (как аргумент arr) в блок (переданный как аргумент block) через пробел.
 
-const out6 = document.querySelector('.out-6');
-
 function t6(arr, block) {
-  block.innerHTML = arr;
+  let out = document.querySelector('.' + block + '');
+  let str = '';
+  for (let item of arr) {
+    str += item + ' ';
+  }
+  out.innerHTML = str;
 }
 
 document.querySelector('.b-6').addEventListener('click', function () {
-  t6([99, 44, 55, 66], out6);
+  t6([99, 44, 55, 66], 'out-6');
 });
 
 // Task 7
 // Давайте напишем функцию t7, которая выводит переданный ей массив (как аргумент arr) в блок (переданный как аргумент block) через пробел. Задайте аргумент arr равный по умолчанию пустому массиву. Добавьте внутрь функции проверку на массив аргумента arr. Если arr не массив, то в block выводим false.
 
-const out7 = document.querySelector('.out-7');
-
 function t7(arr = [], block) {
   let out = document.querySelector(block);
-  if (arr.length == 0) {
-    out.innerHTML = false;
+  let str = '';
+  if (Array.isArray(arr)) {
+    for (let item of arr) {
+      str += item + ' ';
+    }
+    out.innerHTML = str;
   } else {
-    out.innerHTML = arr.join(' ');
+    out.innerHTML = false;
   }
 }
 
 document.querySelector('.b-7').addEventListener('click', function () {
-  t7([99, 44, 55, 66], '.out-7');
+  t7([99, 144, 155, 166], '.out-7');
 });
 
 // Task 8
 // Давайте напишем функцию t8, которая позволяет выводить текст переданный ей в качестве аргумента text в блок block. При этом переданный текст с помощью trim очищается от пробелов до и после и переводится в нижний регистр.
 
-const out8 = document.querySelector('.out-8');
-
-function t8(block, text) {}
+function t8(text, block) {
+  let out = document.querySelector(block);
+  out.innerHTML = text.trim().toLowerCase();
+}
 
 document.querySelector('.b-8').addEventListener('click', function () {
-  t8(out8, ' HelLO wORLd       ');
+  t8(' HelLO wORLd       ', '.out-8');
 });
 
 // Task 9
 // Давайте напишем функцию t9, которая позволяет выводить текст переданный ей в качестве аргумента text в блок block. При этом переданный текст с помощью trim очищается от пробелов до и после и переводится в нижний регистр. Зададим значение по умолчанию для text - пустую строку, это позволит нам избежать ошибок, если данный аргумент упустили, и добавим в функцию проверку - если block не существует, то функция ничего не выводит.
 
-const out9 = document.querySelector('.out-9');
-
-function t9(text, block) {}
+function t9(text = '', block) {
+  let out = document.querySelector(block);
+  if (!block) {
+    return false;
+  } else {
+    out.innerHTML = text.trim().toLowerCase();
+  }
+}
 
 document.querySelector('.b-9').addEventListener('click', function () {
-  t9(' HelLO wORLd       ', out9);
+  t9(' HelLO wORLd       ', '.out-9');
 });
 
 // Task 10
 // Напишите функцию, t10, которая выводит в out-10 количество переданных ей аргументов (число).
 
-const out10 = document.querySelector('.out-10');
-
-function t10() {}
+function t10() {
+  let out = document.querySelector('.out-10');
+  out.innerHTML = arguments.length;
+}
 
 document.querySelector('.b-10').addEventListener('click', function () {
   t10(33, 22, 44, 11, 55, 66, 11, 66);
@@ -135,9 +147,14 @@ document.querySelector('.b-10').addEventListener('click', function () {
 // Task 11
 // Напишите функцию, t11, которая выводит в out-11 cумму переданных ей аргументов (число). Используем arguments.
 
-const out11 = document.querySelector('.out-11');
-
-function t11() {}
+function t11() {
+  const out = document.querySelector('.out-11');
+  let summ = 0;
+  for (let i = 0; i < arguments.length; i++) {
+    summ += arguments[i];
+  }
+  out.innerHTML = summ;
+}
 
 document.querySelector('.b-11').addEventListener('click', function () {
   t11(33, 22, 44, 11, 55, 66, 11, 66);
@@ -146,9 +163,11 @@ document.querySelector('.b-11').addEventListener('click', function () {
 // Task 12
 // Напишите функцию, t12, которая выводит в out-12 cумму переданных ей аргументов (число). Используем rest.
 
-const out12 = document.querySelector('.out-12');
-
-function t12() {}
+function t12(...arguments) {
+  let out = document.querySelector('.out-12');
+  let summ = arguments.reduce((acum, item) => (acum += item));
+  out.innerHTML = summ;
+}
 
 document.querySelector('.b-12').addEventListener('click', function () {
   t12(33, 22, 44, 11, 55, 66, 11, 66);
@@ -156,10 +175,10 @@ document.querySelector('.b-12').addEventListener('click', function () {
 
 // Task 13
 // Напишите функцию, t13, которая выводит в out-13 массив (переданный как аргумент arr) c помощью функции funcArg (переданной как аргумент).
-
 const out13 = document.querySelector('.out-13');
-
-function t13(arr, funcArg) {}
+function t13(arr, funcArg) {
+  funcArg(arr);
+}
 
 // функции для вывода уже заготовлены
 function showArrSpace(arr) {
@@ -180,28 +199,36 @@ document.querySelector('.b-13').addEventListener('click', function () {
 
 const out14 = document.querySelector('.out-14');
 
-function t14(arr, funcArg, block) {}
+function t14(arr, funcArg, block) {
+  funcArg(arr, block);
+}
 
 // функции для вывода уже заготовлены
 function showArrSpace2(arr, block) {
+  block.innerHTML = arr.join('');
   // вывод в блок пишите как в предыдущем примере
 }
 
 function showArrUnderscore2(arr, block) {
+  block.innerHTML = arr.join('_');
   // вывод в блок пишите как в предыдущем примере
 }
 
 document.querySelector('.b-14').addEventListener('click', function () {
-  t14([3, 4, 5], showArrSpace, out14);
+  t14([3, 4, 5], showArrUnderscore2, out14);
   // попробуйте также вместо showArrSpace2 поставить showArrUnderscore2
 });
 
 // Task 15
 // Напишите функцию, t15, которая в зависимости от четности аргумента num запускает функцию even, или odd.
-
 const out15 = document.querySelector('.out-15');
-
-function t15(num, even, odd) {}
+function t15(num, funcArg1, funcArg2) {
+  if (num % 2 == 0) {
+    funcArg2();
+  } else {
+    funcArg1();
+  }
+}
 
 function showOne() {
   out15.innerHTML = 'even';
@@ -210,7 +237,6 @@ function showOne() {
 function showTwo() {
   out15.innerHTML = 'odd';
 }
-
 document.querySelector('.b-15').addEventListener('click', function () {
   t15(5, showOne, showTwo);
 });
